@@ -1,0 +1,23 @@
+---
+title: "README.md"
+author: "Aravind"
+date: "October 24, 2015"
+output: html_document
+---
+
+# Getting And Cleaning Data
+This README corresponds to the project for Getting And Cleaning Data course.
+The project demonstrates how to get, clean and convert data such that they
+adhere to the tidy data principles.
+
+# Project Requirement
+
+Script the following steps in run_analysis.R
+
+* Merge the training and the test sets to create one data set.
+* Extract only the measurements on the mean and standard deviation for each measurement. 
+* Uses descriptive activity names to name the activities in the data set
+* Appropriately label the data set with descriptive variable names. 
+* From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+The final result of running the script is generation of tidy.txt. More information of what the data and script used to analyse this data can be found in codebook.md.

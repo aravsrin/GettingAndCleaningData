@@ -1,0 +1,112 @@
+---
+title: "codebook"
+author: "Aravind"
+date: "October 24, 2015"
+output: html_document
+---
+
+# Project Description
+This project uses data from Human Activity Recognition using SmartPhones, A full description is available [here](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) where the data was obtained: 
+
+Data used for this project can be found in: 
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+# What data is used
+
+Data from the following files are used for calculating the average for each measurement
+variable for each activity and each subject
+
+* features.txt
+    + Describes the various measurement variables.
+* activity_labels.txt
+    + Describes the activity labels, values in this file are used to map values read from y_train.txt and y_test.txt to the corresponding activity.
+* Training dataset
+    + subject_train.txt (subject Id)
+    + x_train.txt (measurement of various variables)
+    + y_train.txt (what activity does the measurement correspond to?)
+* Test dataset
+    + subject_test.txt (subject Id)
+    + x_test.txt (measurement of various variables)
+    + y_test.txt (what activity does the measurement correspond to?)
+
+# Creating the tidy data
+
+## Steps to tidy data
+
+* Read data from training data sets (subject, measurements, activity) and filter them such that mean()/std() data is stored in respective tables.
+* Read data from test data sets (subject, measurements, activity) and filter them such that mean()/std() data is stored in respective tables.
+* Create a vector that represents the columns that represents mean() and std().
+* row merge both the dataset
+* Create factors for activity and label the activity values to the type of activity listed in activity_labels.txt.
+* Change the column names of the merged dataset by mapping the measurement variable to features.txt
+* Calculate the mean for each measurement variable for each activity and each subject.
+The script uses melt/dcast which will result in a wide-format for final tidy data set.
+* Store the tidy data in tidy.txt.
+
+## Scripts used to obtain tidy data
+
+run_analysis.R is the R script that executes above steps to generate the tidy data which is the average of each variable for each activity and each subject. The script checks for
+
+# Comments on Scripts
+* The data file will be downloaded only if it doesnt exist in the current working directory.
+* Similarly unzip happens on the dataset, only when, the generated directory UCI HAR Dataset is not found.
+* As part of identifying which columns to select for mean and std, only columns that have mean() and std() in column names are chosen. Other column names that has mean/std in other forms, for example, FreqMean etc,. are ignored for generating the final data.
+* Every Step is well commented in the script (run_analysis.R)
+
+## Package Dependency
+
+rshape2 package is needed for run_analysis.R
+
+# Description of the variables in the tidy.txt file
+
+tidy.txt can be read as data frame in R, here is a quick summary of the data. 
+
+```
+>dim(dataMean) <-- Assume tidy.txt is read as df into dataMean
+[1] 180  68
+```
+
+## Measurements and Variables.
+
+```
+> colnames(dataMean)
+ [1] "subject"                  "activity"                 "tBodyAccMeanX"           
+ [4] "tBodyAccMeanY"            "tBodyAccMeanZ"            "tBodyAccStdX"            
+ [7] "tBodyAccStdY"             "tBodyAccStdZ"             "tGravityAccMeanX"        
+[10] "tGravityAccMeanY"         "tGravityAccMeanZ"         "tGravityAccStdX"         
+[13] "tGravityAccStdY"          "tGravityAccStdZ"          "tBodyAccJerkMeanX"       
+[16] "tBodyAccJerkMeanY"        "tBodyAccJerkMeanZ"        "tBodyAccJerkStdX"        
+[19] "tBodyAccJerkStdY"         "tBodyAccJerkStdZ"         "tBodyGyroMeanX"          
+[22] "tBodyGyroMeanY"           "tBodyGyroMeanZ"           "tBodyGyroStdX"           
+[25] "tBodyGyroStdY"            "tBodyGyroStdZ"            "tBodyGyroJerkMeanX"      
+[28] "tBodyGyroJerkMeanY"       "tBodyGyroJerkMeanZ"       "tBodyGyroJerkStdX"       
+[31] "tBodyGyroJerkStdY"        "tBodyGyroJerkStdZ"        "tBodyAccMagMean"         
+[34] "tBodyAccMagStd"           "tGravityAccMagMean"       "tGravityAccMagStd"       
+[37] "tBodyAccJerkMagMean"      "tBodyAccJerkMagStd"       "tBodyGyroMagMean"        
+[40] "tBodyGyroMagStd"          "tBodyGyroJerkMagMean"     "tBodyGyroJerkMagStd"     
+[43] "fBodyAccMeanX"            "fBodyAccMeanY"            "fBodyAccMeanZ"           
+[46] "fBodyAccStdX"             "fBodyAccStdY"             "fBodyAccStdZ"            
+[49] "fBodyAccJerkMeanX"        "fBodyAccJerkMeanY"        "fBodyAccJerkMeanZ"       
+[52] "fBodyAccJerkStdX"         "fBodyAccJerkStdY"         "fBodyAccJerkStdZ"        
+[55] "fBodyGyroMeanX"           "fBodyGyroMeanY"           "fBodyGyroMeanZ"          
+[58] "fBodyGyroStdX"            "fBodyGyroStdY"            "fBodyGyroStdZ"           
+[61] "fBodyAccMagMean"          "fBodyAccMagStd"           "fBodyBodyAccJerkMagMean" 
+[64] "fBodyBodyAccJerkMagStd"   "fBodyBodyGyroMagMean"     "fBodyBodyGyroMagStd"     
+[67] "fBodyBodyGyroJerkMagMean" "fBodyBodyGyroJerkMagStd" 
+```
+
+* subject - The ID of the test subject
+* activity - The type of activity performed when the corresponding measurements were taken
+* Other columns represent the average for a particular measurement variable (mean/std) based on specific activity and subject.
+
+Activity Labels section defines what the activities are.
+
+## Activity Labels
+
+* WALKING (value 1): subject was walking during the test
+* WALKING_UPSTAIRS (value 2): subject was walking up a staircase during the test
+* WALKING_DOWNSTAIRS (value 3): subject was walking down a staircase during the test
+* SITTING (value 4): subject was sitting during the test
+* STANDING (value 5): subject was standing during the test
+* LAYING (value 6): subject was laying down during the test
