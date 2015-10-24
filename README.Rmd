@@ -21,3 +21,31 @@ Script the following steps in run_analysis.R
 * From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 The final result of running the script is generation of tidy.txt. More information of what the data and script used to analyse this data can be found in codebook.md.
+
+# Creating the tidy data
+
+## Steps to tidy data
+
+* Read data from training data sets (subject, measurements, activity) and filter them such that mean()/std() data is stored in respective tables.
+* Read data from test data sets (subject, measurements, activity) and filter them such that mean()/std() data is stored in respective tables.
+* Create a vector that represents the columns that represents mean() and std().
+* row merge both the dataset
+* Create factors for activity and label the activity values to the type of activity listed in activity_labels.txt.
+* Change the column names of the merged dataset by mapping the measurement variable to features.txt
+* Calculate the mean for each measurement variable for each activity and each subject.
+The script uses melt/dcast which will result in a wide-format for final tidy data set.
+* Store the tidy data in tidy.txt.
+
+## Scripts used to obtain tidy data
+
+run_analysis.R is the R script that executes above steps to generate the tidy data which is the average of each variable for each activity and each subject. The script checks for
+
+# Comments on Scripts
+* The data file will be downloaded only if it doesnt exist in the current working directory.
+* Similarly unzip happens on the dataset, only when, the generated directory UCI HAR Dataset is not found.
+* As part of identifying which columns to select for mean and std, only columns that have mean() and std() in column names are chosen. Other column names that has mean/std in other forms, for example, FreqMean etc,. are ignored for generating the final data.
+* Every Step is well commented in the script (run_analysis.R)
+
+## Package Dependency
+
+rshape2 package is needed for run_analysis.R
