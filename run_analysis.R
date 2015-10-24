@@ -38,8 +38,8 @@ features[,2] <- as.character(features[,2])
 # Have a variable that will filter out columns that 
 # are mean() / std() and store the names of those
 # columns in another variable.
-featuresWanted <- grep("mean\\(\\)|std\\(\\)", features[,2])
-featureNames <- features[featuresWanted,2]
+measuresWanted <- grep("mean\\(\\)|std\\(\\)", features[,2])
+featureNames <- features[measuresWanted,2]
 featureNames = gsub('-mean()', 'Mean', featureNames)
 featureNames = gsub('-std()', 'Std', featureNames)
 featureNames <- gsub('[-()]', '', featureNames)
@@ -49,13 +49,13 @@ activity <- read.table("UCI HAR Dataset/activity_labels.txt")
 activity[,2] <- as.character(activity[,2])
 
 # Extracts only the measurements on the mean and standard deviation for each measurement. 
-testing <- read.table("UCI HAR Dataset/test/X_test.txt")[featuresWanted]
+testing <- read.table("UCI HAR Dataset/test/X_test.txt")[measuresWanted]
 testing_activity <- read.table("UCI HAR Dataset/test/y_test.txt")
 test_subject <- read.table("UCI HAR Dataset/test/subject_test.txt")
 testing <- cbind(test_subject, testing_activity, testing)
 
 # Extracts only the measurements on the mean and standard deviation for each measurement. 
-training <- read.table("UCI HAR Dataset/train/X_train.txt")[featuresWanted]
+training <- read.table("UCI HAR Dataset/train/X_train.txt")[measuresWanted]
 training_activity <- read.table("UCI HAR Dataset/train/y_train.txt")
 train_subject <- read.table("UCI HAR Dataset/train/subject_train.txt")
 training <- cbind(train_subject, training_activity, training)
