@@ -38,7 +38,7 @@ The script uses melt/dcast which will result in a wide-format for final tidy dat
 
 ## Scripts used to obtain tidy data
 
-run_analysis.R is the R script that executes above steps to generate the tidy data which is the average of each variable for each activity and each subject. The script checks for
+run_analysis.R is the R script that executes above steps to generate the tidy data which is the average of each variable for each activity and each subject.
 
 # Comments on Scripts
 * The data file will be downloaded only if it doesnt exist in the current working directory.
