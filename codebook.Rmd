@@ -30,6 +30,10 @@ variable for each activity and each subject
     + x_test.txt (measurement of various variables)
     + y_test.txt (what activity does the measurement correspond to?)
 
+# Creating the tidy datafile
+
+Description of steps to obtain data and cleanup the data is explained in README.md.
+
 # Description of the variables in the tidy.txt file
 
 tidy.txt can be read as data frame in R, here is a quick summary of the data. 
@@ -37,6 +41,12 @@ tidy.txt can be read as data frame in R, here is a quick summary of the data.
 ```
 >dim(dataMean) <-- Assume tidy.txt is read as df into dataMean
 [1] 180  68
+> class(dataMean$subject)
+[1] "factor"
+> class(dataMean$activity)
+[1] "factor"
+> class(dataMean)
+[1] "data.frame"
 ```
 
 ## Measurements and Variables.
@@ -70,7 +80,7 @@ tidy.txt can be read as data frame in R, here is a quick summary of the data.
 
 * subject - The ID of the test subject
 * activity - The type of activity performed when the corresponding measurements were taken
-* Other columns represent the average for a particular measurement variable (mean/std) based on specific activity and subject.
+* Rest of the columns represent the average for a particular measurement variable (mean/std) based on specific activity and subject.
 
 Activity Labels section defines what the activities are.
 
